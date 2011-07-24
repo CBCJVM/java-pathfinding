@@ -1,0 +1,6 @@
+docs/
+bin/
+dist/
+*.class
+*.jar
+*.html
