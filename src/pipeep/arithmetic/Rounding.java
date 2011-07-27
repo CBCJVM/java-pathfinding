@@ -1,3 +1,5 @@
+package pipeep.arithmetic;
+
 /**
  * Provides static utility functions to help work around floating point rounding
  * errors

@@ -1,3 +1,7 @@
+package pipeep.geometry;
+
+import pipeep.arithmetic.Rounding;
+
 public abstract class BasePolygon {
 	private Node[] nodes;
 	private Line[] lines;

@@ -15,25 +15,20 @@
 	</target>
 	
 	<target name="compile" depends="init"
-				description="compile the source " >
+				description="compile the source">
 		<javac srcdir="${src}" destdir="${build}" debug="true"
-		       debuglevel="lines,vars,source">
-			<!--compilerarg value="-Xlint:unchecked"/-->
-		</javac>
+		       debuglevel="lines,vars,source"/>
 	</target>
 	
 	<target name="document">
-		<javadoc sourcefiles="${src}/BasePolygon.java, ${src}/Board.java,
-		                      ${src}/Line.java, ${src}/Node.java,
-		                      ${src}/Polygon.java, ${src}/Rounding.java,
-		                      ${src}/Triangle.java"
+		<javadoc package="pipeep.*"
 		         sourcepath="${src}"
 		         destdir="${docs}"
 		         author="true"
 		         version="true"
 		         use="true"
 		         windowtitle="Pathfinding API - JavaDoc">
-			<doctitle><![CDATA[<h1>CBCJVM API</h1>]]></doctitle>
+			<doctitle><![CDATA[<h1>Pathfinding API</h1>]]></doctitle>
 			<bottom><![CDATA[<i>Copyright &#169; 2011 Benjamin Woodruff. GPLv3
 				Licensed.
 				<p>Fork us on
@@ -57,5 +52,7 @@
 		<delete dir="${build}"/>
 		<delete dir="${dist}"/>
 		<delete dir="${docs}"/>
+		<delete dir="${test-bin}"/>
+		<delete dir="${test-results}"/>
 	</target>
 </project>

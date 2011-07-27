@@ -1,3 +1,7 @@
+package pipeep.geometry;
+
+import pipeep.arithmetic.Rounding;
+
 /**
  * A general purpose 2d point/node class. It is immutable by design.
  */
@@ -36,7 +40,7 @@ public class Node {
 	}
 	
 	public boolean equals(Object other) {
-		return equals((Node)other, false);
+		return equals((Node)other, true);
 	}
 	
 	public String toString() {

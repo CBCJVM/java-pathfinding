@@ -1,3 +1,7 @@
+package pipeep.geometry;
+
+import pipeep.arithmetic.Rounding;
+
 public class Line {
 	private Node nodeA, nodeB;
 	
@@ -110,6 +114,6 @@ public class Line {
 	}
 	
 	public boolean equals(Line other) {
-		return equals(other, false);
+		return equals(other, true);
 	}
 }

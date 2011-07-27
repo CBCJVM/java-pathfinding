@@ -1,3 +1,9 @@
+package pipeep.pathfinding;
+
+import pipeep.geometry.Node;
+import pipeep.geometry.Line;
+import pipeep.geometry.Polygon;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.HashMap;

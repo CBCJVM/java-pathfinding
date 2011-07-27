@@ -1,3 +1,5 @@
+package pipeep.geometry;
+
 /**
  * A three-sided, three-vertexed polygon. Has some more features than Polygon,
  * simply because there are more assumptions that can be made about triangles.
