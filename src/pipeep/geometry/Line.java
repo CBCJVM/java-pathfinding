@@ -98,7 +98,7 @@ public class Line {
 	 * result as <code>new Node(l.getDeltaX(), l.getDeltaY())</code>.
 	 */
 	public Node getDeltaNode() {
-		return nodeA.subtract(nodeB);
+		return nodeB.subtract(nodeA);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class Line {
 	 *          negative.
 	 */
 	public double getDeltaX() {
-		return nodeA.getX() - nodeB.getX();
+		return nodeB.getX() - nodeA.getX();
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class Line {
 	 *          negative.
 	 */
 	public double getDeltaY() {
-		return nodeA.getY() - nodeB.getY();
+		return nodeB.getY() - nodeA.getY();
 	}
 	
 	/**
