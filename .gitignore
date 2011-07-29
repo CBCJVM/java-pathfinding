@@ -1,6 +1,8 @@
 docs/
 bin/
 dist/
+tests-out/
+tests-bin/
 *.class
 *.jar
 *.html
