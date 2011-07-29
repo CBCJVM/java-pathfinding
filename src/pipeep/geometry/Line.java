@@ -171,7 +171,7 @@ public class Line {
 			}
 			return Double.NEGATIVE_INFINITY;
 		}
-		return getDeltaY() / getDeltaX();
+		return -getDeltaX() / getDeltaY();
 	}
 	
 	/**
