@@ -95,6 +95,8 @@ public abstract class BasePolygon {
 		return result;
 	}
 	
+	public abstract boolean isCCW();
+	
 	public String toString() {
 		String s = "[";
 		for(Node i: getNodes()) {

@@ -19,47 +19,41 @@ public class Polygon extends BasePolygon{
 	private HashSet<Line> triangleLines = null;
 	
 	private boolean isCCW;
+	private boolean isCCWInit = false;
 	
 	/**
-	 * Constructs a <code>Polygon</code> from a bunch of Nodes specified in ccw
-	 * order
+	 * Constructs a <code>Polygon</code> from a bunch of Nodes.
 	 */
 	public Polygon(Node ... nodes) {
-		this(nodes, findIsCCW(nodes));
+		super(nodes);
 	}
 	
-	public Polygon(Node[] nodes, boolean isCCW) {
-		super(makeCCW(nodes, isCCW));
-	}
-	
-	private static boolean findIsCCW(Node[] nodes) {
-		Node center = new Polygon(nodes).getCenter();
-		double avgAngle = 0.;
-		for(Node n : nodes) {
-			Node diff = n.subtract(center);
-			avgAngle += Math.atan2(diff.getX(), diff.getY());
-		}
-		return avgAngle > 0.;
-	}
-	
-	private static Node[] makeCCW(Node[] nodes, boolean isCCW) {
-		if(!isCCW) {
-			// flip the Node array
-			Node[] n = new Node[nodes.length];
-			for(int i = 0; i < nodes.length; ++i) {
-				n[nodes.length - i - 1] = nodes[i];
+	public boolean isCCW() {
+		if(!isCCWInit) {
+			Node center = getCenter();
+			double avgAngle = 0.;
+			for(Node n : getNodes()) {
+				Node diff = n.subtract(center);
+				avgAngle += Math.atan2(diff.getX(), diff.getY());
 			}
-			nodes = n;
+			isCCW = avgAngle > 0.;
+			isCCWInit = true;
 		}
-		return nodes;
+		return isCCW;
 	}
 	
 	public Triangle[] getTriangles() {
 		if(triangles != null) { return triangles; }
 		
-		LinkedList<Node> nodesList = new LinkedList<Node>(
-			Arrays.asList(getNodes())
-		);
+		LinkedList<Node> nodesList;
+		if(isCCW()) {
+			nodesList = new LinkedList<Node>(Arrays.asList(getNodes()));
+		} else {
+			nodesList = new LinkedList();
+			for(int i = getNodes().length - 1; i >= 0; --i) {
+				nodesList.add(getNodes()[i]);
+			}
+		}
 		LinkedList<Triangle> trianglesList = new LinkedList<Triangle>();
 		// perform triangulation
 		while(nodesList.size() >= 3) {
