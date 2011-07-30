@@ -19,7 +19,6 @@ public class Polygon extends BasePolygon{
 	private HashSet<Line> triangleLines = null;
 	
 	private boolean isCCW;
-	private Node[] nodes;
 	
 	/**
 	 * Constructs a <code>Polygon</code> from a bunch of Nodes specified in ccw
