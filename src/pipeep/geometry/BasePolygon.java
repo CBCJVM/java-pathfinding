@@ -115,4 +115,13 @@ public abstract class BasePolygon {
 		}
 		return false;
 	}
+	
+	public Node getCenter() {
+		Node sum = new Node(0, 0);
+		for(Node n : nodes) {
+			sum = sum.add(n);
+		}
+		return new Node(sum.getX() / nodes.length,
+		                sum.getY() / nodes.length);
+	}
 }

@@ -34,12 +34,7 @@ public class Polygon extends BasePolygon{
 	}
 	
 	private static boolean findIsCCW(Node[] nodes) {
-		Node center = new Node(0, 0);
-		for(Node n : nodes) {
-			center = center.add(n);
-		}
-		center = new Node(center.getX() / nodes.length,
-		                  center.getY() / nodes.length);
+		Node center = new Polygon(nodes).getCenter();
 		double avgAngle = 0.;
 		for(Node n : nodes) {
 			Node diff = n.subtract(center);
