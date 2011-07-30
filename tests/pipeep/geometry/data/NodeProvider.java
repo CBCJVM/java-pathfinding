@@ -17,11 +17,11 @@ public class NodeProvider {
 		return getRandomNodes(2);
 	}
 	
-	private static Object[][] getRandomNodes(int width) {
+	public static Object[][] getRandomNodes(int width) {
 		return getRandomNodes(Settings.DATA_POINTS, width);
 	}
 	
-	private static Object[][] getRandomNodes(int count, int width) {
+	public static Object[][] getRandomNodes(int count, int width) {
 		Node[][] data = new Node[count][width];
 		for(int i = 0; i < count; ++i) {
 			data[i] = new Node[width];
@@ -32,11 +32,11 @@ public class NodeProvider {
 		return data;
 	}
 	
-	private static Node getRandomNode() {
+	public static Node getRandomNode() {
 		return getRandomNode(Settings.STD_DEV);
 	}
 	
-	private static Node getRandomNode(double stdDev) {
+	public static Node getRandomNode(double stdDev) {
 		return new Node(RandomNumber.getDouble(stdDev),
 		                RandomNumber.getDouble(stdDev));
 	}
