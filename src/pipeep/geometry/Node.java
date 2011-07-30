@@ -21,22 +21,22 @@ public class Node {
 	}
 	
 	public Node add(Node other) {
-		return new Node(x + other.x, y + other.y);
+		return new Node(getX() + other.getX(), getY() + other.getY());
 	}
 	
 	public Node subtract(Node other) {
-		return new Node(x - other.x, y - other.y);
+		return new Node(getX() - other.getX(), getY() - other.getY());
 	}
 	
 	public double getDistance(Node other) {
-		return Math.hypot(x - other.x, y - other.y);
+		return Math.hypot(getX() - other.getX(), getY() - other.getY());
 	}
 	
 	public boolean equals(Node other, boolean strict) {
 		return this == other ||
-		       strict &&  x == other.x && y == other.y ||
-		       !strict && Rounding.isEqual(x, other.x) &&
-		                  Rounding.isEqual(y, other.y);
+		       strict &&  getX() == other.getX() && getY() == other.getY() ||
+		       !strict && Rounding.isEqual(getX(), other.getX()) &&
+		                  Rounding.isEqual(getY(), other.getY());
 	}
 	
 	public boolean equals(Object other) {
@@ -44,11 +44,11 @@ public class Node {
 	}
 	
 	public String toString() {
-		return "(" + x + ", " + y + ")";
+		return "(" + getX() + ", " + getY() + ")";
 	}
 	
 	public int hashCode() {
-		return (Double.valueOf(x).hashCode() >> 13) ^
-		       Double.valueOf(y).hashCode();
+		return (Double.valueOf(getX()).hashCode() >> 13) ^
+		       Double.valueOf(getY()).hashCode();
 	}
 }
