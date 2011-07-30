@@ -5,7 +5,8 @@ import pipeep.arithmetic.Rounding;
 public abstract class BasePolygon {
 	// Lazily evaluated
 	private Line[] lines = null;
-	private double perimeter;
+	private double perimeter = -1.;
+	private Node center = null;
 	
 	private Node[] nodes;
 	
@@ -18,7 +19,6 @@ public abstract class BasePolygon {
 		}
 		assert nodes.length >= 3;
 		this.nodes = nodes;
-		perimeter = -1.; // lazily evaluated
 	}
 	
 	public Node[] getNodes() {
@@ -117,11 +117,14 @@ public abstract class BasePolygon {
 	}
 	
 	public Node getCenter() {
-		Node sum = new Node(0, 0);
-		for(Node n : nodes) {
-			sum = sum.add(n);
+		if(center == null) {
+			Node sum = new Node(0, 0);
+			for(Node n : nodes) {
+				sum = sum.add(n);
+			}
+			center = new Node(sum.getX() / nodes.length,
+			                  sum.getY() / nodes.length);
 		}
-		return new Node(sum.getX() / nodes.length,
-		                sum.getY() / nodes.length);
+		return center;
 	}
 }
