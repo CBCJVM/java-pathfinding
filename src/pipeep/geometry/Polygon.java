@@ -17,16 +17,38 @@ public class Polygon extends BasePolygon{
 	// lazily evaluated
 	private Triangle[] triangles = null;
 	private HashSet<Line> triangleLines = null;
-	private Line[] lines = null;
 	
 	private boolean isCCW;
 	private Node[] nodes;
 	
+	/**
+	 * Constructs a <code>Polygon</code> from a bunch of Nodes specified in ccw
+	 * order
+	 */
 	public Polygon(Node ... nodes) {
-		this(nodes, true);
+		this(nodes, findIsCCW(nodes));
 	}
 	
 	public Polygon(Node[] nodes, boolean isCCW) {
+		super(makeCCW(nodes, isCCW));
+	}
+	
+	private static boolean findIsCCW(Node[] nodes) {
+		Node center = new Node(0, 0);
+		for(Node n : nodes) {
+			center = center.add(n);
+		}
+		center = new Node(center.getX() / nodes.length,
+		                  center.getY() / nodes.length);
+		double avgAngle = 0.;
+		for(Node n : nodes) {
+			Node diff = n.subtract(center);
+			avgAngle += Math.atan2(diff.getX(), diff.getY());
+		}
+		return avgAngle > 0.;
+	}
+	
+	private static Node[] makeCCW(Node[] nodes, boolean isCCW) {
 		if(!isCCW) {
 			// flip the Node array
 			Node[] n = new Node[nodes.length];
@@ -35,21 +57,11 @@ public class Polygon extends BasePolygon{
 			}
 			nodes = n;
 		}
-		this.nodes = nodes;
+		return nodes;
 	}
 	
 	public Node[] getNodes() {
 		return nodes;
-	}
-	
-	public Line[] getLines() {
-		if(lines == null) {
-			lines = new Line[nodes.length];
-			for(int i = 0; i < lines.length; ++i) {
-				lines[i] = new Line(nodes[i], nodes[(i + 1) % nodes.length]);
-			}
-		}
-		return lines;
 	}
 	
 	public Triangle[] getTriangles() {
@@ -97,6 +109,7 @@ public class Polygon extends BasePolygon{
 		return triangleLines;
 	}
 	
+	@Override
 	public boolean doesIntersectLine(Line line) {
 		return doesIntersectLine(line, false);
 	}

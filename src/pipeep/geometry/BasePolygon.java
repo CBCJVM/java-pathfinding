@@ -3,9 +3,11 @@ package pipeep.geometry;
 import pipeep.arithmetic.Rounding;
 
 public abstract class BasePolygon {
-	private Node[] nodes;
-	private Line[] lines;
+	// Lazily evaluated
+	private Line[] lines = null;
 	private double perimeter;
+	
+	private Node[] nodes;
 	
 	public BasePolygon(Node ... nodes) {
 		// if the polygon was already completed for us
@@ -16,11 +18,6 @@ public abstract class BasePolygon {
 		}
 		assert nodes.length >= 3;
 		this.nodes = nodes;
-		lines = new Line[nodes.length];
-		for(int i = 0; i < nodes.length; ++i) {
-			int k = (i + 1) % nodes.length;
-			lines[i] = new Line(nodes[i], nodes[k]);
-		}
 		perimeter = -1.; // lazily evaluated
 	}
 	
@@ -29,13 +26,19 @@ public abstract class BasePolygon {
 	}
 	
 	public Line[] getLines() {
+		if(lines == null) {
+			lines = new Line[nodes.length];
+			for(int i = 0; i < lines.length; ++i) {
+				lines[i] = new Line(nodes[i], nodes[(i + 1) % nodes.length]);
+			}
+		}
 		return lines;
 	}
 	
 	public double getPerimeter() {
 		if(perimeter < 0) {
 			perimeter = 0;
-			for(int i = 0; i < lines.length; ++i) {
+			for(int i = 0; i < getLines().length; ++i) {
 				perimeter += lines[i].getLength();
 			}
 		}
@@ -101,4 +104,15 @@ public abstract class BasePolygon {
 	}
 	
 	public abstract boolean doesIntersectLine(Line l);
+	
+	public boolean doesIntersectPolygon(BasePolygon poly) {
+		for(Line i : getLines()) {
+			for(Line k : poly.getLines()) {
+				if(i.doesIntersect(k, true)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
