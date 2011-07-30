@@ -54,10 +54,6 @@ public class Polygon extends BasePolygon{
 		return nodes;
 	}
 	
-	public Node[] getNodes() {
-		return nodes;
-	}
-	
 	public Triangle[] getTriangles() {
 		if(triangles != null) { return triangles; }
 		
